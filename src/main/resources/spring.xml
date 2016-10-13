@@ -9,6 +9,6 @@
 	
 	<context:property-placeholder location="classpath:config.properties"/>
 	<!-- 扫描service自动注入为bean -->
-	<context:component-scan base-package="org.drill.service,org.drill.service.impl" />
+	<context:component-scan base-package="org.drill" />
 
 </beans>
