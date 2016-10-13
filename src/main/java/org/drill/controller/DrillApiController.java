@@ -35,7 +35,7 @@ public class DrillApiController {
 	}
 	
 	@RequestMapping(value="undertaker", method = RequestMethod.GET)
-	public String undertakerApi(HttpServletRequest request,HttpServletResponse response){
+	public String undertakerApi(HttpServletRequest request,HttpServletResponse response) throws ParseException{
 		String name = request.getParameter("queryName");
 		String idCard = request.getParameter("queryNo");
 		System.out.println(idCard);

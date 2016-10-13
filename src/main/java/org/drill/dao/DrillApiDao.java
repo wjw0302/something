@@ -1,5 +1,6 @@
 package org.drill.dao;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DrillApiDao extends HibernateDaoSupport{
 	
-	private String newDate;
+	private Date newDate;
 	
 	@Autowired  
     public void setSessionFactoryOverride(SessionFactory sessionFactory)  
@@ -36,7 +37,7 @@ public class DrillApiDao extends HibernateDaoSupport{
 		return 0;
 	}
 	
-	public boolean undertakerApi(String url, String name, String idCard){
+	public boolean undertakerApi(String url, String name, String idCard) throws ParseException{
 		OkhttpUtils okhttpUtils = new OkhttpUtils();
 		okhttpUtils.selectApi(url,name,idCard);
 		String info = okhttpUtils.info.toString();
@@ -45,7 +46,7 @@ public class DrillApiDao extends HibernateDaoSupport{
 		Record record = new Record();
 		record.setInfo(info);
 		record.setType("undertaker");
-		record.setCreateDate(new Date(newDate));
+		record.setCreateDate(newDate);
 		saveRecord(record);
 		return true;
 	}
@@ -55,10 +56,11 @@ public class DrillApiDao extends HibernateDaoSupport{
 	} 
 	
 	
-	public void dateFormat(){
+	public void dateFormat() throws ParseException{
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date date = new Date();
-		newDate = simpleDateFormat.format(date);
+		String strDate = simpleDateFormat.format(date);
+		newDate = simpleDateFormat.parse(strDate);
 	}
 
 }

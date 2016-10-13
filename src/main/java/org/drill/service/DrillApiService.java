@@ -1,5 +1,7 @@
 package org.drill.service;
 
+import java.text.ParseException;
+
 import org.drill.dao.DrillApiDao;
 import org.drill.model.po.Record;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,11 @@ public class DrillApiService {
 		return false;
 	}
 	
-	public Record insertRecord(Record record){
-		return drillApiDao.saveRecord(record);
-	}
+//	public Record insertRecord(Record record){
+//		return drillApiDao.saveRecord(record);
+//	}
 	
-	public boolean undertakerApi(String name, String idCard){
+	public boolean undertakerApi(String name, String idCard) throws ParseException{
 		if(idCard != null){
 			drillApiDao.undertakerApi(url, name, idCard);
 			return true;
