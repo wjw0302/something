@@ -2,6 +2,7 @@ package org.drill.model.po;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -9,9 +10,12 @@ import java.util.Date;
  * The persistent class for the records database table.
  * 
  */
+@Entity
+@Table(name = "type")
 public class Record implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@Id
 	private int id;
 
 	private Date createDate;

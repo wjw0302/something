@@ -12,10 +12,10 @@ import okhttp3.Response;
 
 public class OkhttpUtils {
 	
-	public StringBuffer info;
-	public JSONObject jsonObject;
+	public static StringBuffer info;
+	public static JSONObject jsonObject;
 	
-	public JSONObject selectApi(String url, String name , String queryNo){
+	public static JSONObject selectApi(String url, String name , String queryNo){
 		
 		OkHttpClient client = new OkHttpClient();
 		
@@ -31,8 +31,8 @@ public class OkhttpUtils {
 			}
 			String result = response.body().string();
 			jsonObject = JSONObject.fromObject(result);
-			JsonUtil jsonUtil = new JsonUtil();
-			jsonObject = jsonUtil.transToLowerObject(jsonObject);
+			jsonObject = JsonUtil.transToLowerObject(jsonObject);
+			System.out.println(jsonObject);
 			
 			String idCard = queryNo;
 			String qureyName = name;

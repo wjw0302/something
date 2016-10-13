@@ -28,19 +28,18 @@ public class DrillApiDao extends HibernateDaoSupport{
 	
 	public int selectUser(String username,String password){
 		List list = this.getHibernateTemplate().find("select account from Account account where " + 
-				"account.username='"+username
-			    +"' and account.pwd='"+password+"'");
+				"account.account='"+username
+			    +"' and account.password='"+password+"'");
 		
 		if (list.size() > 0) {
-			return (Integer) list.get(0);
+			return list.size();
 		}
 		return 0;
 	}
 	
 	public boolean undertakerApi(String url, String name, String idCard) throws ParseException{
-		OkhttpUtils okhttpUtils = new OkhttpUtils();
-		okhttpUtils.selectApi(url,name,idCard);
-		String info = okhttpUtils.info.toString();
+		OkhttpUtils.selectApi(url,name,idCard);
+		String info = OkhttpUtils.info.toString();
 		dateFormat();
 		System.out.println(newDate);
 		Record record = new Record();
@@ -51,8 +50,9 @@ public class DrillApiDao extends HibernateDaoSupport{
 		return true;
 	}
 	
-	public Record saveRecord(Record record){
-		return (Record) this.getHibernateTemplate().save(record);
+	
+	public void saveRecord(Record record){
+		this.getHibernateTemplate().save(record);
 	} 
 	
 	

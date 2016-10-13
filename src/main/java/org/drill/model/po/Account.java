@@ -8,9 +8,12 @@ import javax.persistence.*;
  * The persistent class for the account database table.
  * 
  */
+@Entity
+@Table(name="account")
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
 	private int userId;
 
 	private String account;
