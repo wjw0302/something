@@ -46,15 +46,45 @@ public class DrillApiDao extends HibernateDaoSupport{
 		record.setInfo(info);
 		record.setType("undertaker");
 		record.setCreateDate(newDate);
-		saveRecord(record);
+		this.getHibernateTemplate().save(record);
 		return true;
 	}
 	
-	
-	public void saveRecord(Record record){
+	public boolean disruptinfoApi(String url, String name, String idCard) throws ParseException{
+		OkhttpUtils.selectApi(url,name,idCard);
+		String info = OkhttpUtils.info.toString();
+		dateFormat();
+		Record record = new Record();
+		record.setInfo(info);
+		record.setType("disruptinfo");
+		record.setCreateDate(newDate);
 		this.getHibernateTemplate().save(record);
-	} 
+		return true;
+	}
 	
+	public boolean wenshuApi(String url, String text) throws ParseException{
+		OkhttpUtils.findApi(url,text);
+		String info = OkhttpUtils.info.toString();
+		dateFormat();
+		Record record = new Record();
+		record.setInfo(info);
+		record.setType("wenshu");
+		record.setCreateDate(newDate);
+		this.getHibernateTemplate().save(record);
+		return true;
+	}
+	
+	public boolean courtApi(String url, String text) throws ParseException{
+		OkhttpUtils.findApi(url,text);
+		String info = OkhttpUtils.info.toString();
+		dateFormat();
+		Record record = new Record();
+		record.setInfo(info);
+		record.setType("court");
+		record.setCreateDate(newDate);
+		this.getHibernateTemplate().save(record);
+		return true;
+	}
 	
 	public void dateFormat() throws ParseException{
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
