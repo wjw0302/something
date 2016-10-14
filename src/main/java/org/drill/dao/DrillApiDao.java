@@ -7,12 +7,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.drill.model.common.ContentOut;
 import org.drill.model.po.Record;
+import org.drill.model.vo.Undertaker;
 import org.drill.utils.OkhttpUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
+
+import com.google.gson.Gson;
 
 @Repository
 public class DrillApiDao extends HibernateDaoSupport{
@@ -38,10 +42,8 @@ public class DrillApiDao extends HibernateDaoSupport{
 	}
 	
 	public boolean undertakerApi(String url, String name, String idCard) throws ParseException{
-		OkhttpUtils.selectApi(url,name,idCard);
 		String info = OkhttpUtils.info.toString();
 		dateFormat();
-		System.out.println(newDate);
 		Record record = new Record();
 		record.setInfo(info);
 		record.setType("undertaker");

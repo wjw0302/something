@@ -3,14 +3,24 @@ package org.drill.service;
 import java.text.ParseException;
 
 import org.drill.dao.DrillApiDao;
-
+import org.drill.model.common.ContentOut;
+import org.drill.model.vo.Court;
+import org.drill.model.vo.Disruptinfo;
+import org.drill.model.vo.Undertaker;
+import org.drill.model.vo.Wenshu;
+import org.drill.utils.OkhttpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Service
 public class DrillApiService {
 	
 	private String url;
+	private String result;
+	
 	@Autowired
 	public DrillApiDao drillApiDao;
 	
@@ -21,40 +31,59 @@ public class DrillApiService {
 		return false;
 	}
 	
-	public boolean undertakerApi(String name, String idCard) throws ParseException{
+	public String undertakerApi(String name, String idCard) throws ParseException{
 		url = "http://api.biinfo.cn/biinfoservice/undertaker?apiKey=6vTGbGWB9lIqgMNnOyAVWkkslB64nvpqseU1ljwPyTLN3pcEYAj83hns&queryName=&queryNo="+idCard;
 		if(idCard != null){
+			String data = OkhttpUtils.selectApi(url,name,idCard);
+			Gson gson = new Gson();
+			ContentOut<Undertaker> undertaker = gson.fromJson(data.toString(), ContentOut.class);
+			result = undertaker.toString();
 			drillApiDao.undertakerApi(url, name, idCard);
-			return true;
+			return result;
 		}
-		return false;
+		return null;
 	}
 	
-	public boolean disruptinfoApi(String name, String idCard) throws ParseException{
+	public String disruptinfoApi(String name, String idCard) throws ParseException{
 		url = "http://api.biinfo.cn/biinfoservice/disruptinfo?apiKey=6vTGbGWB9lIqgMNnOyAVWkkslB64nvpqseU1ljwPyTLN3pcEYAj83hns&queryName=&queryNo=330622196710140716";
+		String data = OkhttpUtils.selectApi(url,name,idCard);
+		Gson gson = new Gson();
+		ContentOut<Disruptinfo> disruptinfo = gson.fromJson(data.toString(), ContentOut.class);
+		result = disruptinfo.toString();
 		if(idCard != null){
 			drillApiDao.disruptinfoApi(url, name, idCard);
-			return true;
+			return result;
 		}
-		return false;
+		return null;
 	}
 	
-	public boolean wenshuApi(String text) throws ParseException{
+	public String wenshuApi(String text) throws ParseException{
 		url = "http://api.biinfo.cn/biinfoservice/wenshu?apiKey=6vTGbGWB9lIqgMNnOyAVWkkslB64nvpqseU1ljwPyTLN3pcEYAj83hns&text=北京";
 		if(text != null){
+			String data = OkhttpUtils.findApi(url, text);
+			Gson gson = new Gson();
+			ContentOut<Wenshu> wenshu = gson.fromJson(data.toString(), ContentOut.class);
+			result = wenshu.toString();
 			drillApiDao.wenshuApi(url, text);
-			return true;
+			return result;
 		}
-		return false;
+		return null;
 	}
 	
-	public boolean courtApi(String text) throws ParseException{
+	public String courtApi(String text) throws ParseException{
 		url = "http://api.biinfo.cn/biinfoservice/court?apiKey=6vTGbGWB9lIqgMNnOyAVWkkslB64nvpqseU1ljwPyTLN3pcEYAj83hns&text=北京";
 		if(text != null){
+			String data = OkhttpUtils.findApi(url, text);
+			Gson gson = new Gson();
+			JsonObject obj = new JsonObject();
+			ContentOut<Court> court = gson.fromJson(data.toString(), ContentOut.class);
 			drillApiDao.courtApi(url, text);
-			return true;
+//			obj = gson.toJsonTree(court).getAsJsonObject();
+//			return obj.toString();
+			result = court.toString();
+			return result;
 		}
-		return false;
+		return null;
 	}
 	
 	public DrillApiDao getDrillApiDao() {

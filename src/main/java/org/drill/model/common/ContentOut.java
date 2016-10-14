@@ -1,4 +1,4 @@
-package org.drill.model.vo;
+package org.drill.model.common;
 
 public class ContentOut<T> {
 	
@@ -26,7 +26,7 @@ public class ContentOut<T> {
 	
 	@Override
 	public String toString() {
-		return "ContentOut [result=" + result + ", resultcode=" + resultcode + ", message=" + message + "]";
+		return "[result=" + result + ", resultcode=" + resultcode + ", message=" + message + "]";
 	}
 
 }

@@ -1,5 +1,7 @@
 package org.drill.controller;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("drill")
 public class DrillApiController {
-	
+
 	@Autowired
 	public DrillApiService drillApiService;
 	public String content;
 
-	@RequestMapping("find")
+	@RequestMapping(value = "find", produces = "application/json;charset=UTF-8")
 	public String selectUser(HttpServletRequest request, HttpServletResponse response) {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -33,66 +35,74 @@ public class DrillApiController {
 		content = ResultStatus.RESULT_FAILD.getContent();
 		return content;
 	}
-	
-	@RequestMapping(value="undertaker", method = RequestMethod.GET)
-	public String undertakerApi(HttpServletRequest request,HttpServletResponse response) throws ParseException{
+
+	@RequestMapping(value = "undertaker", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public String undertakerApi(HttpServletRequest request, HttpServletResponse response) throws ParseException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String name = request.getParameter("queryName");
 		String idCard = request.getParameter("queryNo");
 		if (drillApiService.searchUser(username, password)) {
 			content = ResultStatus.RESULT_SECCESS.getContent();
-			if (drillApiService.undertakerApi(name, idCard)){
-				request.setAttribute("result", OkhttpUtils.jsonObject);
+			String result = drillApiService.undertakerApi(name, idCard);
+			if (result != null) {
+				request.setAttribute("result", result);
 			}
 			return content;
 		}
 		content = ResultStatus.RESULT_FAILD.getContent();
 		return content;
 	}
-	
-	@RequestMapping(value="disruptinfo", method = RequestMethod.GET)
-	public String disruptinfoApi(HttpServletRequest request,HttpServletResponse response) throws ParseException{
+
+	@RequestMapping(value = "disruptinfo", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public String disruptinfoApi(HttpServletRequest request, HttpServletResponse response) throws ParseException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String name = request.getParameter("queryName");
 		String idCard = request.getParameter("queryNo");
 		if (drillApiService.searchUser(username, password)) {
 			content = ResultStatus.RESULT_SECCESS.getContent();
-			if (drillApiService.disruptinfoApi(name, idCard)){
-				request.setAttribute("result", OkhttpUtils.jsonObject);
+			String result = drillApiService.disruptinfoApi(name, idCard);
+			if (result != null) {
+				request.setAttribute("result", result);
 			}
 			return content;
 		}
 		content = ResultStatus.RESULT_FAILD.getContent();
 		return content;
 	}
-	
-	@RequestMapping(value="wenshu", method = RequestMethod.GET)
-	public String wenshuApi(HttpServletRequest request,HttpServletResponse response) throws ParseException{
+
+	@RequestMapping(value = "wenshu", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public String wenshuApi(HttpServletRequest request, HttpServletResponse response)
+			throws ParseException, IOException {
+		request.setCharacterEncoding("utf-8");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String text = request.getParameter("text");
 		if (drillApiService.searchUser(username, password)) {
 			content = ResultStatus.RESULT_SECCESS.getContent();
-			if (drillApiService.wenshuApi(text)){
-				request.setAttribute("result", OkhttpUtils.jsonObject);
+			String result = drillApiService.wenshuApi(text);
+			if (result != null) {
+				request.setAttribute("result", result);
 			}
 			return content;
 		}
 		content = ResultStatus.RESULT_FAILD.getContent();
 		return content;
 	}
-	
-	@RequestMapping(value="court", method = RequestMethod.GET)
-	public String courtApi(HttpServletRequest request,HttpServletResponse response) throws ParseException{
+
+	@RequestMapping(value = "court", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
+	public String courtApi(HttpServletRequest request, HttpServletResponse response)
+			throws ParseException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String text = request.getParameter("text");
+		System.out.println(text);
 		if (drillApiService.searchUser(username, password)) {
 			content = ResultStatus.RESULT_SECCESS.getContent();
-			if (drillApiService.courtApi(text)){
-				request.setAttribute("result", OkhttpUtils.jsonObject);
+			String result = drillApiService.courtApi(text);
+			if (result != null) {
+				request.setAttribute("result", result);
 			}
 			return content;
 		}
@@ -107,6 +117,5 @@ public class DrillApiController {
 	public void setDrillApiService(DrillApiService drillApiService) {
 		this.drillApiService = drillApiService;
 	}
-	
-	
+
 }

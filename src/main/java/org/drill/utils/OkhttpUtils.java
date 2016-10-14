@@ -16,7 +16,7 @@ public class OkhttpUtils {
 	public static StringBuffer info;
 	public static JSONObject jsonObject;
 	
-	public static JSONObject selectApi(String url, String name , String queryNo){
+	public static String selectApi(String url, String name , String queryNo){
 		
 		sendRequest(url);	
 		String idCard = queryNo;
@@ -26,16 +26,16 @@ public class OkhttpUtils {
 			info.append("[{'label':'姓名','key':'name','value':").append(qureyName).append("}").append(",{'label':'身份证','key':'idCard','value':").append(idCard).append("}]");
 		}
 		info.append("{'label':'身份证','key':'idCard','value':").append(idCard).append("}");
-		return jsonObject;
+		return jsonObject.toString();
 	}
 	
-	public static JSONObject findApi(String url, String text){
+	public static String findApi(String url, String text){
 		
 		sendRequest(url);	
 		String value = text;
 		info = new StringBuffer();
 		info.append("{'label':'关键字','key':'text','value':").append(value).append("}");
-		return jsonObject;
+		return jsonObject.toString();
 	}
 	
 	public static void sendRequest(String url){
