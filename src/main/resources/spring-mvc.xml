@@ -11,6 +11,20 @@
 
 	<!-- 自动扫描@Controller注入为bean -->
 	<context:component-scan base-package="org.drill.controller" />
+	
+	<!-- <mvc:interceptors>  
+         <mvc:interceptor>
+         	<mvc:mapping path="/*" />
+	         	<bean class="com.tianxingshuke.interceptor.LoginInterceptor" >
+	         		<property name="allowUrls">
+	         			<list>
+	         				<value>login.action</value>
+	         				<value>doLogin.action</value>
+	         			</list>
+	         		</property>
+	         	</bean>
+         </mvc:interceptor>
+ 	</mvc:interceptors>  -->
 
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
 	<bean

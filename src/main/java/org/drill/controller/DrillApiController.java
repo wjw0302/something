@@ -1,14 +1,12 @@
 package org.drill.controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.drill.service.DrillApiService;
-import org.drill.utils.OkhttpUtils;
 import org.drill.utils.ResultStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

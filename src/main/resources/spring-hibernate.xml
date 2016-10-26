@@ -49,7 +49,6 @@
 		
 		<!-- 扫描hibernate注解配置的entity -->
 		<property name="packagesToScan" value="org.drill.model.po" />
-<!-- 		<beans:property name="packagesToScan" value="org.drill.model.*"/> -->
 	</bean>
 
 	<!-- 配置事务管理器 -->

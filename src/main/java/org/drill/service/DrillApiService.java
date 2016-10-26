@@ -39,7 +39,7 @@ public class DrillApiService {
 			ContentOut<Undertaker> undertaker = gson.fromJson(data.toString(), ContentOut.class);
 			result = undertaker.toString();
 			drillApiDao.undertakerApi(url, name, idCard);
-			return result;
+			return data;
 		}
 		return null;
 	}
